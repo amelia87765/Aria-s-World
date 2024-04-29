@@ -6,7 +6,7 @@ class Game:
 
 		pygame.init()
 		self.screen = pygame.display.set_mode((WIDTH,HEIGTH))
-		pygame.display.set_caption('Zelda')
+		pygame.display.set_caption('Świat według Arii')
 		self.clock = pygame.time.Clock()
 
 	
@@ -18,7 +18,6 @@ class Game:
 					sys.exit()
 
 			self.screen.fill('black')
-			self.level.run()
 			pygame.display.update()
 			self.clock.tick(FPS)
 

@@ -7,6 +7,7 @@ class Level:
         self.display_surface = pygame.display.get_surface()
         self.visible_sprites = pygame.sprite.Group()
         self.obstacles_sprites = pygame.sprite.Group()
+        self.player = Player((0, 0), [self.visible_sprites], self.obstacles_sprites)
 
         self.display_map()
 
@@ -16,9 +17,10 @@ class Level:
                 x = column_index * TILESIZE
                 y = row_index * TILESIZE
                 if column == 'p':
-                    Player((x, y), [self.visible_sprites], self.obstacles_sprites)
+                    self.player.rect.topleft = (x, y)
 
     def run(self):
         self.visible_sprites.update()
         self.visible_sprites.draw(self.display_surface)
-        pygame.display.flip()        
+        pygame.display.flip()
+                          

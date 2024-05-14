@@ -16,7 +16,7 @@ class Level:
                 x = column_index * TILESIZE
                 y = row_index * TILESIZE
                 if column == 'p':
-                    Player((x, y), [self.visible_sprites])
+                    Player((x, y), [self.visible_sprites], self.obstacles_sprites)
 
     def run(self):
         self.visible_sprites.update()

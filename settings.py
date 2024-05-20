@@ -1,6 +1,6 @@
 WIDTH    = 1280
 HEIGHT   = 720
-FPS      = 50
+FPS      = 65
 TILESIZE = 64
 
 WORLD_MAP = [

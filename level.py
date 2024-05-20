@@ -7,7 +7,7 @@ class Level:
         self.camera_x = 0
         self.camera_y = 0
         self.display_surface = pygame.display.get_surface()
-        self.visible_sprites = pygame.sprite.Group()
+        self.visible_sprites = DisplayGroup()
         self.obstacles_sprites = pygame.sprite.Group()
         self.player = Player((0, 0), [self.visible_sprites], self.obstacles_sprites)
 
@@ -27,10 +27,9 @@ class Level:
                     self.player.rect.topleft = (x, y)
 
     def run(self):
-       self.visible_sprites.update()
-       self.display_group.draw(self.display_surface)
-       self.visible_sprites.draw(self.display_surface)
-       pygame.display.flip()
+        self.visible_sprites.update()
+        self.visible_sprites.custom_draw(self.player)
+        pygame.display.flip()
 
 class DisplayGroup(pygame.sprite.Group):
     def __init__(self):
@@ -43,8 +42,14 @@ class DisplayGroup(pygame.sprite.Group):
 
         self.floor_surf = pygame.image.load('graphics/map/map.png').convert()
         self.floor_rect = self.floor_surf.get_rect(topleft = (0,0))
-    def draw(self, surface):
+    def custom_draw(self,player):
 
-        surface.blit(self.floor_surf, self.floor_rect)
+        self.offset.x = player.rect.centerx - self.half_width
+        self.offset.y = player.rect.centery - self.half_height
 
-        super().draw(surface)                              
+        floor_offset_pos = self.floor_rect.topleft - self.offset
+        self.display_surface.blit(self.floor_surf,floor_offset_pos)
+
+        for sprite in sorted(self.sprites(),key = lambda sprite: sprite.rect.centery):
+            offset_pos = sprite.rect.topleft - self.offset
+            self.display_surface.blit(sprite.image,offset_pos)                             

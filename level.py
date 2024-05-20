@@ -44,11 +44,11 @@ class DisplayGroup(pygame.sprite.Group):
         self.floor_rect = self.floor_surf.get_rect(topleft = (0,0))
     def custom_draw(self,player):
 
-        self.offset.x = player.rect.centerx - self.half_width
-        self.offset.y = player.rect.centery - self.half_height
+        self.offset.x = min(max(player.rect.centerx - self.half_width, 0), self.floor_rect.width - WIDTH)
+        self.offset.y = min(max(player.rect.centery - self.half_height, 0), self.floor_rect.height - HEIGHT)
 
         floor_offset_pos = self.floor_rect.topleft - self.offset
-        self.display_surface.blit(self.floor_surf,floor_offset_pos)
+        self.display_surface.blit(self.floor_surf, floor_offset_pos)
 
         for sprite in sorted(self.sprites(),key = lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset

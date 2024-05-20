@@ -9,7 +9,7 @@ class Player(pygame.sprite.Sprite):
 		self.hitbox = self.rect.copy()
 
 		self.direction = pygame.math.Vector2()
-		self.speed = 4
+		self.speed = 3
 
 		self.obstacle_sprites = obstacle_sprites
 

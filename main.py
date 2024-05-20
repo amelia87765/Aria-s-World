@@ -10,6 +10,8 @@ class Game:
 		pygame.display.set_caption('Świat według Arii')
 		self.clock = pygame.time.Clock()
 		self.level = Level()
+		main_audio = pygame.mixer.Sound('audio/ARIASWORLD.wav')
+		main_audio.play(loops=-1)
 
 	
 	def run(self):

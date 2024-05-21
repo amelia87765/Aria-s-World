@@ -20,10 +20,18 @@ class Game:
 				if event.type == pygame.QUIT:
 					pygame.quit()
 					sys.exit()
+				elif event.type == pygame.KEYDOWN:
+					if event.key == pygame.K_SPACE:
+						self.handle_interaction()
 		
 			self.screen.fill('black')
 			self.level.run()
 			pygame.display.update()
 			self.clock.tick(FPS)
 
+	def handle_interaction(self):
+		player = self.level.player
+		for friend in self.level.friends:
+			if friend.check_proximity(player):
+				friend.interact(self.screen)
 Game().run()

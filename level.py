@@ -1,6 +1,7 @@
 import pygame
 from settings import *
 from player import Player
+from friend import Friend
 
 class Level:
     def __init__(self):
@@ -10,6 +11,7 @@ class Level:
         self.visible_sprites = DisplayGroup()
         self.obstacles_sprites = pygame.sprite.Group()
         self.player = Player((0, 0), [self.visible_sprites], self.obstacles_sprites)
+        self.friends = pygame.sprite.Group()
 
         self.display_group = DisplayGroup()
         self.display_map()
@@ -25,12 +27,36 @@ class Level:
                 y = row_index * TILESIZE
                 if column == 'p':
                     self.player.rect.topleft = (x, y)
+                elif column == 'f1':
+                    friend = Friend((x, y), [self.visible_sprites, self.friends], self.obstacles_sprites, 'graphics/characters/Fox.png')
+                    self.friends.add(friend)
+                elif column == 'f2':
+                    friend = Friend((x, y), [self.visible_sprites, self.friends], self.obstacles_sprites, 'graphics/characters/Julek.png')
+                    self.friends.add(friend)
 
     def run(self):
         self.visible_sprites.update()
         self.visible_sprites.custom_draw(self.player)
         pygame.display.flip()
+    def handle_interaction(self, player):
+        for friend in self.friends:
+            if friend.check_proximity(player):
+                friend.interact(self.display_surface)
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_1:
+                            friend.handle_option_1()
+                        elif event.key == pygame.K_2:
+                            friend.handle_option_2()
+                        elif event.key == pygame.K_3:
+                            friend.handle_option_1() 
+                        elif event.key == pygame.K_4:
+                            friend.handle_option_1()  
+    def handle_option_1(self, friend):
+        friend.friendship_level += 1
 
+    def handle_option_2(self, friend):
+        friend.friendship_level -= 1
 class DisplayGroup(pygame.sprite.Group):
     def __init__(self):
 

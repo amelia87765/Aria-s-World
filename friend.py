@@ -11,9 +11,9 @@ class Friend(pygame.sprite.Sprite):
         self.hitbox = self.rect.copy()
 
         self.direction = pygame.math.Vector2()
-        self.speed = 3
+        self.speed = 2
         self.timer = 0
-        self.move_interval = random.randint(50, 200)
+        self.move_interval = random.randint(100, 200)
         self.direction = pygame.math.Vector2(random.choice([-1, 1]), random.choice([-1, 1]))
 
         self.obstacle_sprites = obstacle_sprites

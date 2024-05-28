@@ -2,6 +2,7 @@ import pygame
 from settings import *
 from player import Player
 from friend import Friend
+from obstacle import Obstacle
 
 class Level:
     def __init__(self):
@@ -33,6 +34,14 @@ class Level:
                 elif column == 'f2':
                     friend = Friend((x, y), [self.visible_sprites, self.friends], self.obstacles_sprites, 'graphics/characters/Julek.png')
                     self.friends.add(friend)
+                elif column == 'f3':
+                    friend = Friend((x, y), [self.visible_sprites, self.friends], self.obstacles_sprites, 'graphics/characters/Husky.png')
+                    self.friends.add(friend)
+                elif column == 'f4':
+                    friend = Friend((x, y), [self.visible_sprites, self.friends], self.obstacles_sprites, 'graphics/characters/krab.png')
+                    self.friends.add(friend)        
+                elif column == 'x':
+                    Obstacle((x,y),[self.visible_sprites, self.obstacles_sprites])    
 
     def run(self):
         self.visible_sprites.update()

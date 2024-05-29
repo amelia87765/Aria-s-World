@@ -13,6 +13,7 @@ class Level:
         self.obstacles_sprites = pygame.sprite.Group()
         self.player = Player((0, 0), [self.visible_sprites], self.obstacles_sprites)
         self.friends = pygame.sprite.Group()
+        self.friend_list = []
 
         self.display_group = DisplayGroup()
         self.display_map()
@@ -46,7 +47,9 @@ class Level:
     def run(self):
         self.visible_sprites.update()
         self.visible_sprites.custom_draw(self.player)
+        self.display_friend_list()
         pygame.display.flip()
+
     def handle_interaction(self, player):
         for friend in self.friends:
             if friend.check_proximity(player):
@@ -63,9 +66,20 @@ class Level:
                             friend.handle_option_1()  
     def handle_option_1(self, friend):
         friend.friendship_level += 1
+        if friend.friendship_level >= 3 and friend not in self.friend_list:
+            self.friend_list.append(friend)
 
     def handle_option_2(self, friend):
         friend.friendship_level -= 1
+
+    def display_friend_list(self):
+        icon_size = 50
+        margin = 10
+        for index, friend in enumerate(self.friend_list):
+            icon = pygame.transform.scale(friend.image, (icon_size, icon_size))
+            x = margin + index * (icon_size + margin)
+            y = margin
+            self.display_surface.blit(icon, (x, y))    
 class DisplayGroup(pygame.sprite.Group):
     def __init__(self):
 

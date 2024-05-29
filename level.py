@@ -57,13 +57,13 @@ class Level:
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_1:
-                            friend.handle_option_1()
+                            self.handle_option_1(friend)
                         elif event.key == pygame.K_2:
-                            friend.handle_option_2()
+                            self.handle_option_2(friend)
                         elif event.key == pygame.K_3:
-                            friend.handle_option_1() 
+                            self.handle_option_1(friend) 
                         elif event.key == pygame.K_4:
-                            friend.handle_option_1()  
+                            self.handle_option_1(friend)  
     def handle_option_1(self, friend):
         friend.friendship_level += 1
         if friend.friendship_level >= 3 and friend not in self.friend_list:

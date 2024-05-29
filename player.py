@@ -59,3 +59,4 @@ class Player(pygame.sprite.Sprite):
 	def update(self):
 		self.input()
 		self.move(self.speed)
+		
